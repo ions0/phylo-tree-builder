@@ -7,7 +7,7 @@ __pycache__/
 # Output directories
 results/
 
-# Data (optional - omit if you want to include sample data)
+# Data
 data/
 testing/
 
