@@ -11,6 +11,7 @@ from matplotlib.patches import Patch
 from Bio import Phylo
 
 import config
+from tree_construction import get_genera
 
 def plot_phylo_tree(tree, genus_colors, n_species, timestamp, axes_col, back_col):
     """Visualise and save the phylogenetic tree with color-coded genera."""
@@ -57,6 +58,14 @@ def color_clades(tree, genus_colors: dict) -> None:
                     break
         if not matched:
             clade.color = config.DEFAULT_CLADE_COLOR
+
+def get_genus_colors(tree) -> dict:
+
+    # Extract number of genera and assign colour
+    genera = get_genera(tree)
+    colors = generate_palette(len(genera))
+    
+    return dict(zip(genera, colors))
 
 def generate_palette(n_genera: int) -> list:
     """Generate color palette for genus visualization."""
