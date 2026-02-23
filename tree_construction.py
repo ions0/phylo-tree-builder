@@ -3,10 +3,12 @@ Phylo Tree Builder: tree_construction.py
 
 """
 from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
+from Bio.Align import MultipleSeqAlignment
+from Bio.Phylo.BaseTree import Tree
 
 import config
 
-def get_genera(tree) -> list:
+def get_genera(tree: Tree) -> list:
 
     """Extract unique genus names from tree terminal nodes.
     Parses terminal node names assuming format 'Genus_species' and 
@@ -22,7 +24,7 @@ def get_genera(tree) -> list:
 
     return list(genera)
 
-def build_tree(alignment):
+def build_tree(alignment: MultipleSeqAlignment) -> Tree:
 
     calculator = DistanceCalculator("identity")
     dm = calculator.get_distance(alignment)

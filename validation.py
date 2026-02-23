@@ -7,8 +7,9 @@ from pathlib import Path
 import config
 
 from Bio import AlignIO
+from Bio.Align import MultipleSeqAlignment
 
-def muscle_path_check():
+def muscle_path_check() -> None:
 
     if not Path(config.MUSCLE_PATH).exists():
         print("=" * 60)
@@ -22,7 +23,10 @@ def muscle_path_check():
 
     print("✓ MUSCLE found at:", config.MUSCLE_PATH)   
 
-def combine_and_align(combined_file, aligned_file):
+def combine_and_align(
+    combined_file: Path | None, 
+    aligned_file: Path | None
+) -> MultipleSeqAlignment | None:
 
     if combined_file is None:
         print("Stopping due to errors in reading FASTA files.")

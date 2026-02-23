@@ -9,11 +9,20 @@ import seaborn as sns
 
 from matplotlib.patches import Patch
 from Bio import Phylo
+from Bio.Phylo.BaseTree import Tree
 
 import config
 from tree_construction import get_genera
 
-def plot_phylo_tree(tree, genus_colors, n_species, timestamp, axes_col, back_col):
+def plot_phylo_tree(
+    tree: Tree, 
+    genus_colors: dict, 
+    n_species: int, 
+    timestamp: str, 
+    axes_col: str, 
+    back_col: str
+) -> None:
+
     """Visualise and save the phylogenetic tree with color-coded genera."""
 
     color_clades(tree, genus_colors)
@@ -45,7 +54,7 @@ def plot_phylo_tree(tree, genus_colors, n_species, timestamp, axes_col, back_col
     plt.savefig(config.TREES_PATH / f"fungal_tree_{timestamp}.png",dpi=config.DPI, bbox_inches="tight")
     plt.show()
 
-def color_clades(tree, genus_colors: dict) -> None:
+def color_clades(tree: Tree, genus_colors: dict) -> None:
     """Assign colors to tree clades based on genus names."""
 
     for clade in tree.find_clades():
@@ -59,7 +68,7 @@ def color_clades(tree, genus_colors: dict) -> None:
         if not matched:
             clade.color = config.DEFAULT_CLADE_COLOR
 
-def get_genus_colors(tree) -> dict:
+def get_genus_colors(tree: Tree) -> dict:
 
     # Extract number of genera and assign colour
     genera = get_genera(tree)
