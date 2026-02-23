@@ -4,7 +4,7 @@ Author: Jared Cambridge
 Date Started: November 20, 2025
 Major Completion: November 26, 2025
 
-Updated: February 23, 2026
+Updated: February 24, 2026
 
 Description:     
     Automated phylogenetic tree construction from FASTA sequences.
@@ -18,7 +18,7 @@ from pathlib import Path
 
 import config
 from alignment import align_fasta
-from visualisation import generate_palette, plot_phylo_tree
+from visualisation import generate_palette, plot_phylo_tree, get_genus_colors
 from io_utils import read_fasta, generate_timestamp
 from tree_construction import get_genera, build_tree
 from validation import muscle_path_check, combine_and_align
@@ -50,11 +50,7 @@ def main():
 
     alignment = combine_and_align(combined_file, aligned_file)
     tree = build_tree(alignment)
-
-    # Extract number of genera and assign colour
-    genera = get_genera(tree)
-    colors = generate_palette(len(genera))
-    genus_colors = dict(zip(genera, colors))
+    genus_colors = get_genus_colors(tree)
     n_species = len(tree.get_terminals())
 
     plot_phylo_tree(tree, genus_colors, n_species, timestamp, config.AXES_COL, config.BACK_COL)
