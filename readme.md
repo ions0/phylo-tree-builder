@@ -6,6 +6,12 @@ A Python-based pipeline for constructing and visualising phylogenetic trees from
 
 This tool combines multiple FASTA files, performs multiple sequence alignment using MUSCLE, calculates genetic distances, and constructs a phylogenetic tree using distance-based methods with automated genus-based color coding.
 
+## Status
+
+This project is currently in active development. CLI argument parsing (`--method`, `--input`, `--output`) has been added but is not yet fully integrated into the pipeline — running with CLI arguments may not behave as expected until integration and validation are complete.
+
+Core functionality (alignment, tree construction, and visualisation) works as intended when run directly via `python phylo_tree_builder.py`.
+
 ## Features
 
 - Combines multiple FASTA files into a single alignment
