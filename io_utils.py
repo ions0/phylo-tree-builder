@@ -15,7 +15,7 @@ def read_fasta(in_folder: Path, out_file: Path, seq_type: str="fasta") -> Path:
 
     if not in_folder.exists():
         print(f"ERROR: Folder {in_folder} does not exist!")
-        print("Please create the 'data' folder and add your FASTA files.")
+        print("Please check input folder and add your FASTA files.")
         return None
 
     fasta_files = [i for i in in_folder.iterdir() if str(i.suffix).lower() == ".fasta"]
