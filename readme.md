@@ -53,6 +53,16 @@ Install with: `pip install -r requirements.txt`
    - `alignments/` - Combined and aligned FASTA files
    - `trees/` - Tree visualisations (PNG) and structure files (Newick)
 
+## Arguments
+
+| Argument | Options | Default | Description |
+|---|---|---|---|
+| `--method` | `nj`, `upgma` | `nj` | Tree construction method |
+| `--input` | any valid path | `data/` | Input directory containing FASTA files |
+| `--output` | any valid path | `results/` | Output directory for results |
+
+> **Note:** `--input` and `--output` argument integration is still in progress.
+
 ## Input Format
 
 - FASTA files with `.fasta` extension
