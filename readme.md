@@ -8,7 +8,7 @@ This tool combines multiple FASTA files, performs multiple sequence alignment us
 
 ## Status
 
-This project is currently in active development. CLI argument parsing (`--method`, `--input`, `--output`) has been added but is not yet fully integrated into the pipeline — running with CLI arguments may not behave as expected until integration and validation are complete.
+This project is currently in active development. `--method` and `--input` CLI arguments are integrated and functional. `--output` integration is still in progress.
 
 Core functionality (alignment, tree construction, and visualisation) works as intended when run directly via `python phylo_tree_builder.py`.
 
@@ -61,7 +61,7 @@ Install with: `pip install -r requirements.txt`
 | `--input` | any valid path | `data/` | Input directory containing FASTA files |
 | `--output` | any valid path | `results/` | Output directory for results |
 
-> **Note:** `--input` and `--output` argument integration is still in progress.
+> **Note:** `--output` argument integration is still in progress.
 
 ## Input Format
 

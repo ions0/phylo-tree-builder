@@ -4,6 +4,7 @@ Phylo Tree Builder: cli.py
 """
 
 import argparse
+from pathlib import Path
 
 import config
 
@@ -51,5 +52,7 @@ def parse_arguments() -> argparse.Namespace:
 
     return parser.parse_args()
 
-def validate_arguments(args) -> None:
-    pass
+def validate_arguments(args: argparse.Namespace) -> None:
+    
+    if not Path(args.input).exists():
+        raise SystemExit("ERROR: Input path does not exist")

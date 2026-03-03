@@ -17,7 +17,7 @@ Version: 1.0.1
 from pathlib import Path
 
 import config
-from cli import parse_arguments
+from cli import parse_arguments, validate_arguments
 from alignment import align_fasta
 from visualisation import generate_palette, plot_phylo_tree, get_genus_colors
 from io_utils import read_fasta, generate_timestamp
@@ -40,12 +40,13 @@ def main():
     """
 
     args = parse_arguments()
+    validate_arguments(args)
     config.setup_directories()
     muscle_path_check()
     timestamp = generate_timestamp()
 
     combined_file = read_fasta(
-    Path(config.FASTA_PATH), config.ALIGNMENTS_PATH / f"combined_{timestamp}.fasta")
+    Path(args.input), config.ALIGNMENTS_PATH / f"combined_{timestamp}.fasta")
 
     aligned_file = align_fasta(
         combined_file, config.ALIGNMENTS_PATH / f"combined_aligned_{timestamp}.fasta", config.MUSCLE_PATH)
