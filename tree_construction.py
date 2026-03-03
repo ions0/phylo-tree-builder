@@ -6,8 +6,6 @@ from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstruct
 from Bio.Align import MultipleSeqAlignment
 from Bio.Phylo.BaseTree import Tree
 
-import config
-
 def get_genera(tree: Tree) -> list:
 
     """Extract unique genus names from tree terminal nodes.
@@ -24,19 +22,19 @@ def get_genera(tree: Tree) -> list:
 
     return list(genera)
 
-def build_tree(alignment: MultipleSeqAlignment) -> Tree:
+def build_tree(alignment: MultipleSeqAlignment, method: str) -> Tree:
 
     calculator = DistanceCalculator("identity")
     dm = calculator.get_distance(alignment)
     constructor = DistanceTreeConstructor()
     
-    if config.DEFAULT_TREE_METHOD == "nj":
+    if method == "nj":
         tree = constructor.nj(dm)
-    elif config.DEFAULT_TREE_METHOD == "upgma":
+    elif method == "upgma":
         tree = constructor.upgma(dm)
     else:
-        raise ValueError(f"Unknown tree method: {config.DEFAULT_TREE_METHOD}")
-    print(f"✓ Phylogenetic tree constructed using: {config.DEFAULT_TREE_METHOD.upper()}")
+        raise ValueError(f"Unknown tree method: {method}")
+    print(f"✓ Phylogenetic tree constructed using: {method}")
 
     # Draw the tree without branch labels
     for node in tree.get_nonterminals():
