@@ -73,8 +73,6 @@ Edit `config.py` to adjust paths and pipeline settings:
 # Paths
 FASTA_PATH = SCRIPT_PATH / "data"
 RESULTS_PATH = SCRIPT_PATH / "results"
-ALIGNMENTS_PATH = RESULTS_PATH / "alignments"
-TREES_PATH = RESULTS_PATH / "trees"
 
 # Tree Construction
 DEFAULT_DISTANCE_METHOD = "identity"
@@ -88,15 +86,17 @@ DEFAULT_CLADE_COLOR = "gray"
 
 ## Output
 
-Files are timestamped to prevent overwrites:
-
-**Alignments folder** (`results/alignments/`):
-- `combined_YYYY_MM_DD_HHMMSS.fasta`: All input sequences combined
-- `combined_aligned_YYYY_MM_DD_HHMMSS.fasta`: Multiple sequence alignment
-
-**Trees folder** (`results/trees/`):
-- `fungal_tree_YYYY_MM_DD_HHMMSS.png`: Tree visualisation (300 DPI)
-- `fungal_tree_YYYY_MM_DD_HHMMSS.nwk`: Newick format tree structure
+Results are saved in a timestamped folder to prevent overwrites:
+```
+<output>/
+└── results_YYYY_MM_DD_HHMMSS/
+    ├── alignments/
+    │   ├── combined_YYYY_MM_DD_HHMMSS.fasta
+    │   └── combined_aligned_YYYY_MM_DD_HHMMSS.fasta
+    └── trees/
+        ├── fungal_tree_YYYY_MM_DD_HHMMSS.png
+        └── fungal_tree_YYYY_MM_DD_HHMMSS.nwk
+```
 
 ## Error Handling
 
