@@ -40,23 +40,24 @@ def main():
     """
 
     args = parse_arguments()
-    validate_arguments(args)
-    config.setup_directories(Path(args.output))
-    muscle_path_check()
     timestamp = generate_timestamp()
-
+    run_path = Path(args.output) / f"results_{timestamp}"
+    validate_arguments(args)
+    config.setup_directories(run_path)
+    muscle_path_check()
+    
     combined_file = read_fasta(
-    Path(args.input), Path(args.output) / "alignments" / f"combined_{timestamp}.fasta")
+    Path(args.input), Path(run_path) / "alignments" / f"combined_{timestamp}.fasta")
 
     aligned_file = align_fasta(
-        combined_file, Path(args.output) / "alignments" / f"combined_aligned_{timestamp}.fasta", config.MUSCLE_PATH)
+        combined_file, Path(run_path) / "alignments" / f"combined_aligned_{timestamp}.fasta", config.MUSCLE_PATH)
 
     alignment = combine_and_align(combined_file, aligned_file)
     tree = build_tree(alignment, args.method)
     genus_colors = get_genus_colors(tree)
     n_species = len(tree.get_terminals())
 
-    plot_phylo_tree(tree, genus_colors, n_species, timestamp, config.AXES_COL, config.BACK_COL, Path(args.output))
+    plot_phylo_tree(tree, genus_colors, n_species, timestamp, config.AXES_COL, config.BACK_COL, run_path)
 
 if __name__ == "__main__":
     main()

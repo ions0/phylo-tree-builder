@@ -10,8 +10,6 @@ SCRIPT_PATH = Path(__file__).resolve().parent
 MUSCLE_PATH = shutil.which("muscle") or r"/usr/local/bin"
 RESULTS_PATH = SCRIPT_PATH / "results"
 FASTA_PATH = SCRIPT_PATH / "data"
-ALIGNMENTS_PATH = RESULTS_PATH / "alignments"
-TREES_PATH = RESULTS_PATH / "trees"
 
 # Tree Construction
 DEFAULT_DISTANCE_METHOD = "identity"
