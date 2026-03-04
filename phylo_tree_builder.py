@@ -31,32 +31,32 @@ def main():
     constructs phylogenetic tree, and generates visualisation.
 
     Steps:
-    1. Read and combine FASTA files from data/ folder
+    1. Read and combine FASTA files from data/ folder or from --input argument
     2. Align sequences using MUSCLE
     3. Calculate distance matrix
-    4. Construct phylogenetic tree (Neighbor-Joining)
+    4. Construct phylogenetic tree
     5. Visualise and save results
 
     """
 
     args = parse_arguments()
     validate_arguments(args)
-    config.setup_directories()
+    config.setup_directories(Path(args.output))
     muscle_path_check()
     timestamp = generate_timestamp()
 
     combined_file = read_fasta(
-    Path(args.input), config.ALIGNMENTS_PATH / f"combined_{timestamp}.fasta")
+    Path(args.input), Path(args.output) / "alignments" / f"combined_{timestamp}.fasta")
 
     aligned_file = align_fasta(
-        combined_file, config.ALIGNMENTS_PATH / f"combined_aligned_{timestamp}.fasta", config.MUSCLE_PATH)
+        combined_file, Path(args.output) / "alignments" / f"combined_aligned_{timestamp}.fasta", config.MUSCLE_PATH)
 
     alignment = combine_and_align(combined_file, aligned_file)
     tree = build_tree(alignment, args.method)
     genus_colors = get_genus_colors(tree)
     n_species = len(tree.get_terminals())
 
-    plot_phylo_tree(tree, genus_colors, n_species, timestamp, config.AXES_COL, config.BACK_COL)
+    plot_phylo_tree(tree, genus_colors, n_species, timestamp, config.AXES_COL, config.BACK_COL, Path(args.output))
 
 if __name__ == "__main__":
     main()

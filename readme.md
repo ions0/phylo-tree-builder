@@ -6,12 +6,6 @@ A Python-based pipeline for constructing and visualising phylogenetic trees from
 
 This tool combines multiple FASTA files, performs multiple sequence alignment using MUSCLE, calculates genetic distances, and constructs a phylogenetic tree using distance-based methods with automated genus-based color coding.
 
-## Status
-
-This project is currently in active development. `--method` and `--input` CLI arguments are integrated and functional. `--output` integration is still in progress.
-
-Core functionality (alignment, tree construction, and visualisation) works as intended when run directly via `python phylo_tree_builder.py`.
-
 ## Features
 
 - Combines multiple FASTA files into a single alignment
@@ -61,7 +55,8 @@ Install with: `pip install -r requirements.txt`
 | `--input` | any valid path | `data/` | Input directory containing FASTA files |
 | `--output` | any valid path | `results/` | Output directory for results |
 
-> **Note:** `--output` argument integration is still in progress.
+With arguments:
+`python phylo_tree_builder.py --method upgma --input /path/to/fasta --output /path/to/results`
 
 ## Input Format
 
@@ -166,12 +161,13 @@ This project was developed as a learning exercise in phylogenetic analysis and b
 
 ## Version History
 
+- **v1.1.0** (March 4, 2026): Added CLI argument support (`--method`, `--input`, `--output`)
 - **v1.0.1** (February 23, 2026): Refactored into modular structure; separated concerns across dedicated modules; fixed directory setup side effects; improved pipeline flow
 - **v1.0.0** (November 20, 2025): Initial release
 
 ## Future Improvements
 
-- [ ] Command-line argument support (argparse)
+- [x] Command-line argument support (argparse)
 - [ ] Bootstrap analysis for branch support values
 - [ ] Additional distance calculation methods (Jukes-Cantor, Kimura)
 - [ ] Support for protein sequences
@@ -193,7 +189,7 @@ This project was developed as a learning exercise in phylogenetic analysis and b
 
 ## Author
 
-Jared Cambridge - 2025
+Jared Cambridge - 2026
 
 ## Acknowledgments
 

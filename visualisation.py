@@ -3,6 +3,8 @@ Phylo Tree Builder: visualisation.py
 
 """
 
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import matplotlib.colors
 import seaborn as sns
@@ -20,7 +22,8 @@ def plot_phylo_tree(
     n_species: int, 
     timestamp: str, 
     axes_col: str, 
-    back_col: str
+    back_col: str,
+    out_path: Path
 ) -> None:
 
     """Visualise and save the phylogenetic tree with color-coded genera."""
@@ -48,10 +51,10 @@ def plot_phylo_tree(
     ax.set_ylabel("Taxa", fontsize=12)
 
     Phylo.draw(tree, axes=ax, do_show=False)
-    Phylo.write(tree, config.TREES_PATH / f"fungal_tree_{timestamp}.nwk", "newick")
+    Phylo.write(tree, out_path / "trees" / f"fungal_tree_{timestamp}.nwk", "newick")
 
     plt.tight_layout()
-    plt.savefig(config.TREES_PATH / f"fungal_tree_{timestamp}.png",dpi=config.DPI, bbox_inches="tight")
+    plt.savefig(out_path / "trees" / f"fungal_tree_{timestamp}.png",dpi=config.DPI, bbox_inches="tight")
     plt.show()
 
 def color_clades(tree: Tree, genus_colors: dict) -> None:

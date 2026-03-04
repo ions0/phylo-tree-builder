@@ -26,14 +26,12 @@ BACK_COL = "#f2eee4"
 
 TIMESTAMP_FORMAT = "%Y_%m_%d_%H%M%S"
 
-def setup_directories() -> None:
+def setup_directories(out_path: Path) -> None:
     """Create all required directories"""
     
-    directories = [
-        FASTA_PATH,
-        RESULTS_PATH,
-        ALIGNMENTS_PATH,
-        TREES_PATH
+    directories = [ 
+        Path(out_path / "alignments"),
+        Path(out_path / "trees")
     ]
     
     for directory in directories:
