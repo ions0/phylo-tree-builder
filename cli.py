@@ -56,3 +56,6 @@ def validate_arguments(args: argparse.Namespace) -> None:
     
     if not Path(args.input).exists():
         raise SystemExit("ERROR: Input path does not exist")
+
+    if not Path(args.output).exists() or not Path(args.output).is_dir():
+        Path(args.output).mkdir(parents=True, exist_ok=True)
