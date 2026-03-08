@@ -67,21 +67,20 @@ With arguments:
 
 ## Configuration
 
-Edit `config.py` to adjust paths and pipeline settings:
+Edit `config.yaml` to adjust settings without touching Python code:
+```yaml
+paths:
+  fasta: data/
+  results: results/
 
-```python
-# Paths
-FASTA_PATH = SCRIPT_PATH / "data"
-RESULTS_PATH = SCRIPT_PATH / "results"
+tree:
+  default_method: nj           # "nj" (Neighbor-Joining) or "upgma"
+  distance_method: identity
 
-# Tree Construction
-DEFAULT_DISTANCE_METHOD = "identity"
-DEFAULT_TREE_METHOD = "nj"           # "nj" (Neighbor-Joining) or "upgma"
-
-# Visualisation
-FIGURE_SIZE = (14, 8)
-DPI = 300
-DEFAULT_CLADE_COLOR = "gray"
+visualisation:
+  figure_size: [14, 8]
+  dpi: 300
+  default_clade_color: gray
 ```
 
 ## Output
@@ -132,19 +131,20 @@ Sequences can be obtained from NCBI GenBank using ITS1/ITS2 region searches.
 
 ```
 phylo_tree_builder/
-├── phylo_tree_builder.py    # Entry point — pipeline orchestration
-├── config.py                # Paths, settings, directory setup
-├── io_utils.py              # FASTA reading, combining, timestamp generation
-├── alignment.py             # MUSCLE alignment wrapper
-├── tree_construction.py     # Distance matrix, tree building, genus extraction
-├── validation.py            # MUSCLE path check, alignment validation
-├── visualisation.py         # Tree plotting, clade colouring, palette generation
-├── requirements.txt         # Python dependencies
-├── README.md                # This file
-├── data/                    # Input FASTA files (auto-created)
-└── results/                 # Output directory (auto-created)
-    ├── alignments/          # Combined and aligned sequences
-    └── trees/               # Visualisations and Newick files
+├── phylo_tree_builder.py       #Entry point — pipeline orchestration
+├── config.py                   # Paths, settings, directory setup
+├── config.yaml                 # User-facing configuration overrides
+├── io_utils.py                 # FASTA reading, combining, timestamp generation
+├── alignment.py                # MUSCLE alignment wrapper
+├── tree_construction.py        # Distance matrix, tree building, genus extraction
+├── validation.py               # MUSCLE path check, alignment validation
+├── visualisation.py            # Tree plotting, clade colouring, palette generation
+├── requirements.txt            # Python dependencies
+├── README.md                   # This file
+├── data/                       # Input FASTA files (auto-created)
+└── results_YYYY_MM_DD_HHMMSS/  # Output directory (auto-created)
+    ├── alignments/             # Combined and aligned sequences
+    └── trees/                  # Visualisations and Newick files
 ```
 
 ## Learning Notes
@@ -161,6 +161,7 @@ This project was developed as a learning exercise in phylogenetic analysis and b
 
 ## Version History
 
+- **v1.1.1** (March 9, 2026): Added `config.yaml` support for user-facing settings override
 - **v1.1.0** (March 4, 2026): Added CLI argument support (`--method`, `--input`, `--output`)
 - **v1.0.1** (February 23, 2026): Refactored into modular structure; separated concerns across dedicated modules; fixed directory setup side effects; improved pipeline flow
 - **v1.0.0** (November 20, 2025): Initial release
@@ -173,7 +174,7 @@ This project was developed as a learning exercise in phylogenetic analysis and b
 - [ ] Support for protein sequences
 - [ ] Maximum likelihood tree construction
 - [ ] Automated sequence download from NCBI
-- [ ] Configuration file support (YAML/TOML)
+- [x] Configuration file support (YAML/TOML)
 - [ ] Tree rooting options
 - [ ] Interactive tree visualisation
 

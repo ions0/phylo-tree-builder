@@ -1,0 +1,12 @@
+paths:
+  fasta: data/
+  results: results/
+
+tree:
+  default_method: nj
+  distance_method: identity
+
+visualisation:
+  figure_size: [14, 8]
+  dpi: 300
+  default_clade_color: gray
