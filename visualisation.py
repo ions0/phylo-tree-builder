@@ -29,19 +29,24 @@ def plot_phylo_tree(
     """Visualise and save the phylogenetic tree with color-coded genera."""
 
     color_clades(tree, genus_colors)
-    sns.set_theme(context="talk", style="white", font_scale=1.0)
+    sns.set_theme(context="talk", style="white", font_scale=0.8)
 
     for clade in tree.get_terminals():
+
         if clade.name:
-            parts = clade.name.split("_")
-            clade.name = f"{parts[0].capitalize()} {parts[1]}"
+            if "_" in clade.name:
+                parts = clade.name.split("_")
+                if len(parts) >= 4:
+                    clade.name = " ".join(parts[1:]).lower()
+                elif len(parts) <= 3:
+                    clade.name = " ".join(parts[:3]).lower()
 
     fig = plt.figure(figsize=config.FIGURE_SIZE)
     ax = fig.add_subplot(1, 1, 1)
     ax.set_facecolor(axes_col)
     fig.patch.set_facecolor(back_col)
     legend_elements = [Patch(facecolor=color, label=genus.capitalize())
-                        for genus, color in genus_colors.items()] 
+                        for genus, color in genus_colors.items()]
                         
     ax.legend(handles=legend_elements, loc="upper left", bbox_to_anchor=(1.02, 1.0), 
                                                             title="Genera", fontsize=14)

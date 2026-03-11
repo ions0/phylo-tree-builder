@@ -40,6 +40,9 @@ if config_file.exists():
     FIGURE_SIZE = tuple(cfg.get("visualisation", {}).get("figure_size", FIGURE_SIZE))
     DPI = cfg.get("visualisation", {}).get("dpi", DPI)
     DEFAULT_CLADE_COLOR = cfg.get("visualisation", {}).get("default_clade_color", DEFAULT_CLADE_COLOR)
+    NCBI_EMAIL = cfg.get("ncbi", {}).get("email", None)
+    NCBI_API_KEY = cfg.get("ncbi", {}).get("api_key", None)
+    NCBI_FETCH_LIMIT = cfg.get("ncbi", {}).get("default_fetch_limit", 10)
 
 def setup_directories(out_path: Path) -> None:
     """Create all required directories"""

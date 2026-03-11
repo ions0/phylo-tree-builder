@@ -6,6 +6,7 @@ Phylo Tree Builder: ncbi_fetch.py
 from pathlib import Path
 
 from Bio import Entrez, SeqIO
+from Bio.Seq import UndefinedSequenceError
 
 from config import NCBI_API_KEY, NCBI_EMAIL
 
@@ -21,30 +22,37 @@ def fetch_by_accession(accessions: list[str], out_dir: Path) -> None:
     _save_sequence(handle, out_dir)
 
 def fetch_by_term(term: str, out_dir: Path, limit: int = 10) -> None:
-    handle = Entrez.esearch(db="nucleotide", term=term, retmax=limit)
+
+    term_organism = f"{term}[organism]"
+
+    handle = Entrez.esearch(db="nucleotide", term=term_organism, retmax=limit)
+    
     ids = Entrez.read(handle)["IdList"]
     if not ids:
         raise ValueError(f"No sequences found for: {term}")
+
     handle = Entrez.efetch(db="nucleotide", id=",".join(ids), rettype="gb", retmode="text")
     _save_sequence(handle, out_dir)
 
 def _save_sequence(handle, out_dir: Path) -> None:
 
     sequences = list(SeqIO.parse(handle, "gb"))
-    for seq in sequences:
+    for idx, seq in enumerate(sequences):
         
         genus = seq.annotations["taxonomy"][-1]
         organism_name = seq.annotations["organism"].replace(" ", "_")
 
         if str(organism_name).startswith(genus):
-            seq.id = organism_name
+            seq.id = f"{organism_name}_{idx}"
         else:
-            seq.id =  f"{genus}_{organism_name}"
-            
-        out_path = out_dir / f"{seq.id}.fasta"
-        print(f"ID: {seq.id}")
-        print(f"NAME: {seq.name}")
-        print(f"DESC: {seq.description}")
-        SeqIO.write(seq, out_path, "fasta")
+            seq.id =  f"{genus}_{organism_name}_{idx}"
+
+        try:
+            out_path = out_dir / f"{seq.id}.fasta"
+            SeqIO.write(seq, out_path, "fasta")
+
+        except UndefinedSequenceError:
+            print("Sequence content is undefined")
+            continue
     
     print(f"{len(sequences)} sequences saved to {out_dir}")
