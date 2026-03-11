@@ -50,12 +50,32 @@ def parse_arguments() -> argparse.Namespace:
         help="Select output destination for trees"
     )
 
+    parser.add_argument(
+        "--fetch",
+        type=str,
+        help="Search term to fetch sequences from NCBI"
+    )
+
+    parser.add_argument(
+        "--accessions",
+        nargs="+",
+        help="NCBI accession numbers to fetch",
+    )
+
+    parser.add_argument(
+        "--fetch-limit",
+        type=int,
+        default=10,
+        help="Max sequences to fetch (default: 10)"
+    )
+
     return parser.parse_args()
 
 def validate_arguments(args: argparse.Namespace) -> None:
     
-    if not Path(args.input).exists():
-        raise SystemExit("ERROR: Input path does not exist")
+    if not args.fetch and not args.accessions:
+        if not Path(args.input).exists():
+            raise SystemExit("ERROR: Input path does not exist")
 
-    if not Path(args.output).exists() or not Path(args.output).is_dir():
-        Path(args.output).mkdir(parents=True, exist_ok=True)
+        if not Path(args.output).exists() or not Path(args.output).is_dir():
+            Path(args.output).mkdir(parents=True, exist_ok=True)

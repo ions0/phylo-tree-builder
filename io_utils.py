@@ -38,7 +38,7 @@ def read_fasta(in_folder: Path, out_file: Path, seq_type: str="fasta") -> Path:
                     print(f"Warning: Empty sequence found in {file.name}, skipping...")
                     continue
 
-                base_id = file.stem 
+                base_id = file.stem
 
                 if idx > 1:
                     new_id = f"{base_id}_{idx}"

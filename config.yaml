@@ -10,3 +10,8 @@ visualisation:
   figure_size: [14, 8]
   dpi: 300
   default_clade_color: gray
+
+ncbi:
+  email: your@email.com
+  api_key:
+  default_fetch_limit: 10
