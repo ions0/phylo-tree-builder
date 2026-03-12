@@ -119,8 +119,8 @@ Results are saved in a timestamped folder to prevent overwrites:
     │   ├── combined_YYYY_MM_DD_HHMMSS.fasta
     │   └── combined_aligned_YYYY_MM_DD_HHMMSS.fasta
     └── trees/
-        ├── fungal_tree_YYYY_MM_DD_HHMMSS.png
-        └── fungal_tree_YYYY_MM_DD_HHMMSS.nwk
+        ├── tree_YYYY_MM_DD_HHMMSS.png
+        └── tree_YYYY_MM_DD_HHMMSS.nwk
 ```
 
 When using `--fetch` or `--accessions`, downloaded sequences are also saved to a timestamped subdirectory within `data/` for reuse.
@@ -153,7 +153,8 @@ phylo_tree_builder/
 ├── requirements.txt            # Python dependencies
 ├── README.md                   # This file
 ├── data/                       # Input FASTA files (auto-created)
-│   └── <term>_YYYYMMDD/        # NCBI fetch output (auto-created per run)
+│   └── <term>_YYYYMMDD/        # NCBI fetch output - Using --fetch (auto-created per run)
+|   └── <accessions>_YYYYMMDD/  # NCBI fetch output - Using --accessions(auto-created per run)
 └── results/
     └── results_YYYY_MM_DD_HHMMSS/
         ├── alignments/
