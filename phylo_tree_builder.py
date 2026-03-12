@@ -31,7 +31,7 @@ def main():
     constructs phylogenetic tree, and generates visualisation.
 
     Steps:
-    1. Read and combine FASTA files from data/ folder or from --input argument
+    1. Read and combine FASTA files from data/ folder, --input argument or NCBI fetching
     2. Align sequences using MUSCLE
     3. Calculate distance matrix
     4. Construct phylogenetic tree
