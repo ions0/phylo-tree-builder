@@ -52,14 +52,14 @@ def plot_phylo_tree(
                                                             title="Genera", fontsize=14)
 
     ax.set_xlabel("Genetic Distance", fontsize=12)
-    ax.set_title(f"Phylogenetic Relationships of Medicinal Fungi Based on (n={n_species}) ITS Sequences")
+    ax.set_title(f"Phylogenetic Relationships for (n={n_species}) ITS Sequences")
     ax.set_ylabel("Taxa", fontsize=12)
 
     Phylo.draw(tree, axes=ax, do_show=False)
-    Phylo.write(tree, out_path / "trees" / f"fungal_tree_{timestamp}.nwk", "newick")
+    Phylo.write(tree, out_path / "trees" / f"tree_{timestamp}.nwk", "newick")
 
     plt.tight_layout()
-    plt.savefig(out_path / "trees" / f"fungal_tree_{timestamp}.png",dpi=config.DPI, bbox_inches="tight")
+    plt.savefig(out_path / "trees" / f"tree_{timestamp}.png",dpi=config.DPI, bbox_inches="tight")
     plt.show()
 
 def color_clades(tree: Tree, genus_colors: dict) -> None:
