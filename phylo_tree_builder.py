@@ -4,7 +4,7 @@ Author: Jared Cambridge
 Date Started: November 20, 2025
 Major Completion: November 26, 2025
 
-Updated: February 24, 2026
+Updated: March 13, 2026
 
 Description:     
     Automated phylogenetic tree construction from FASTA sequences.
@@ -66,10 +66,19 @@ def main():
         combined_file = read_fasta(
             Path(config.FASTA_PATH), Path(run_path) / "alignments" / f"combined_{timestamp}.fasta")
 
+    if combined_file is None:
+            raise SystemExit("Stopping: could not read FASTA files.")
+
     aligned_file = align_fasta(
         combined_file, Path(run_path) / "alignments" / f"combined_aligned_{timestamp}.fasta", config.MUSCLE_PATH)
 
+    if aligned_file is None:
+        raise SystemExit("Stopping: alignment failed.")
+
     alignment = combine_and_align(combined_file, aligned_file)
+    if alignment is None:
+        raise SystemExit("Stopping: alignment validation failed.")
+
     tree = build_tree(alignment, args.method)
     genus_colors = get_genus_colors(tree)
     n_species = len(tree.get_terminals())
