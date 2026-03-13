@@ -48,8 +48,9 @@ def _save_sequence(handle, out_dir: Path) -> None:
             seq.id =  f"{genus}_{organism_name}_{idx}"
 
         try:
-            out_path = out_dir / f"{seq.id}.fasta"
-            SeqIO.write(seq, out_path, "fasta")
+            if str(seq.seq):
+                out_path = out_dir / f"{seq.id}.fasta"
+                SeqIO.write(seq, out_path, "fasta")
 
         except UndefinedSequenceError:
             print("Sequence content is undefined")
