@@ -12,7 +12,7 @@ import config
 
 def read_fasta(in_folder: Path, out_file: Path, seq_type: str="fasta") -> Path:
     """Combine multiple FASTA files into one and standardise record IDs."""
-
+        
     if not in_folder.exists():
         print(f"ERROR: Folder {in_folder} does not exist!")
         print("Please check input folder and add your FASTA files.")
